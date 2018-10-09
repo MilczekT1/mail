@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="MailServiceApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="mail" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="pl.konradboniecki.budget.mail.MailServiceApp" />
+    <option name="VM_PARAMETERS" value="-Dbudget.baseUrl=http://konradboniecki.com.pl" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

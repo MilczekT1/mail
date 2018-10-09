@@ -1,0 +1,20 @@
+
+    private String getFileContentAsString(String filename, String extension) throws FileNotFoundException {
+        File file = new File(getClass().getClassLoader().getResource(filename + "." + extension).getFile());
+        assertTrue(file.exists());
+
+        StringBuilder result = new StringBuilder();
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                result.append(line).append("\n");
+            }
+        }
+        return result.toString();
+    }
+
+    private String getLog(){
+        String log = outputCaptureRule.toString().replaceAll("\n", "");
+        log = log.replaceAll("\r","");
+        return log;
+    }

@@ -1,0 +1,23 @@
+budget:
+  mail:
+    replyTo: "test@mail.com"
+  chassis:
+    http-logging:
+      enabled: true
+  baseUrl:
+    gateway: "https://konradboniecki.com.pl"
+spring:
+  profiles:
+    active: test
+  security:
+    user:
+      name: "testUserName"
+      password: "testUserPassword"
+  cloud:
+    config:
+      enabled: false
+  zipkin:
+    enabled: false
+  mail:
+    username: "testUserName"
+

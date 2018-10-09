@@ -1,0 +1,263 @@
+openapi: 3.0.1
+info:
+  title: Mail Service
+  description: 'Api exposed by budget management service'
+  version: 0.0.1
+externalDocs:
+  description: Go to source Code
+  url: https://bitbucket.org/konradboniecki/mail/src/master/
+servers:
+  - url: http://localhost:8080/api/mail/v1
+  - url: https://konradboniecki.com.pl/api/mail/v1
+tags:
+  - name: Accounts
+    description: Api for emails related to account
+  - name: Passwords
+    description: Api for emails related to password.
+  - name: Invitations
+    description: Api for email related to invitations
+security:
+  - basicAuth: [ ]
+paths:
+  '/account-activations':
+    post:
+      tags:
+        - Accounts
+      summary: Send email with activation link.
+      description: Send email with sign up confirmation and account activation link.
+      operationId: sendSignUpConfirmation
+      requestBody:
+        description: Signup confirmation details
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignUpDetails'
+        required: true
+      responses:
+        '201':
+          description: successful operation
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  '/password-reset':
+    post:
+      tags:
+        - Passwords
+      summary: Send email with activation link.
+      description: Send email with new password confirmation and password activation link.
+      operationId: sendNewPasswordConfirmation
+      requestBody:
+        description: New password confirmation details
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResetPasswordDetails'
+        required: true
+      responses:
+        '201':
+          description: successful operation
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  '/family-invitations':
+    post:
+      tags:
+        - Invitations
+      summary: Send email with invitation link.
+      description: Send email with invitation to family.
+      operationId: sendInvitationToFamily
+      requestBody:
+        description: Invitation to family details
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvitationToFamily'
+        required: true
+      responses:
+        '201':
+          description: successful operation
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+  schemas:
+    InvitationToFamily:
+      type: object
+      required:
+        - family
+        - guest
+      properties:
+        inviter:
+          type: object
+          $ref: '#/components/schemas/Account'
+        invitee:
+          type: object
+          $ref: '#/components/schemas/Account'
+        family:
+          type: object
+          $ref: '#/components/schemas/Family'
+        invitationCode:
+          type: string
+          format: uuid
+          example: "dc1fd96a-2532-4a81-afbe-7f7b2245331e"
+        email:
+          type: string
+          format: email
+          maxLength: 256
+          example: "john@doe.com"
+        guest:
+          type: boolean
+          example: false
+
+    SignUpDetails:
+      type: object
+      required:
+        - account
+        - activationCode
+      properties:
+        account:
+          type: object
+          $ref: '#/components/schemas/Account'
+        activationCode:
+          type: string
+          format: uuid
+          example: "dc1fd96a-2532-4a81-afbe-7f7b2245331e"
+    ResetPasswordDetails:
+      type: object
+      required:
+        - account
+        - resetCode
+      properties:
+        account:
+          type: object
+          $ref: '#/components/schemas/Account'
+        resetCode:
+          type: string
+          format: uuid
+          example: "dc1fd96a-2532-4a81-afbe-7f7b2245331e"
+    Account:
+      type: object
+      required:
+        - id
+        - email
+        - firstName
+        - lastName
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "dc1fd96a-2532-4a81-afbe-7f7b2245331e"
+        firstName:
+          type: string
+          maxLength: 64
+          example: "John"
+        lastName:
+          type: string
+          maxLength: 64
+          example: "Doe"
+        email:
+          type: string
+          format: email
+          maxLength: 256
+          example: "john@doe.com"
+    Family:
+      type: object
+      required:
+        - id
+        - title
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "dc1fd96a-2532-4a81-afbe-7f7b2245331e"
+        title:
+          type: string
+          minimum: 6
+          maximum: 64
+          example: "john@doe.com"
+
+    ErrorDescription:
+      title: ErrorDescription
+      description: |
+        [RFC 7807](https://tools.ietf.org/html/rfc7807) Problem Details for HTTP
+      type: object
+      required:
+        - status
+        - title
+      properties:
+        status:
+          type: integer
+          format: int32
+          description: |
+            The HTTTP response status code
+        title:
+          type: string
+          format: int32
+          description: |
+            Summary of problem type
+          maxLength: 4096
+        type:
+          type: string
+          description: |
+            An URI reference [RFC3986] that identifies the problem type.
+          maxLength: 4096
+        detail:
+          type: string
+          description: |
+            Explanation specific to this occurence of the problem.
+          maxLength: 4096
+        instance:
+          type: string
+          description: |
+            An URI reference that identifies the specific ocurrence of the problem.
+          maxLength: 4096
+  responses:
+    ResourceNotFoundError:
+      description: |
+        Resource or subresource is not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorDescription'
+          examples:
+            response:
+              value:
+                status: 404
+                title: Resource not found
+                type: ResourceNotFound
+                details: Resource of subresource not found.
+    BadRequestError:
+      description: |
+        The server cannot or will not process the request due to an apparent client error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorDescription'
+          examples:
+            response:
+              value:
+                status: 400
+                title: Bad Request
+                type: InvalidRequest
+                details: Invalid request.
+    InternalServerError:
+      description: |
+        Server encountered an unexpected condition that prevented it from fulfilling the request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorDescription'
+          examples:
+            response:
+              value:
+                status: 500
+                title: Internal Server Error
+                type: UnexpectedError
+                details: Unexpected error occurred.

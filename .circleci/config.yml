@@ -6,6 +6,12 @@ deployment_branch_filter: &deployment_branch_filter
         - master
         - /feature.*/
         - /bugfix.*/
+test_branch_filter: &test_branch_filter
+  filters:
+    branches:
+      only:
+        - /feature.*/
+        - /bugfix.*/
 docker_java_11: &docker_java_11
   docker:
     - image: cimg/openjdk:11.0.8-node
@@ -34,7 +40,7 @@ workflows:
           type: approval
           requires:
             - build
-          <<: *deployment_branch_filter
+          <<: *test_branch_filter
       - pipeline-template/run_acceptance_tests:
           sharedWorkspacePath: "shared_workspace"
           requires:

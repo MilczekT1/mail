@@ -28,15 +28,11 @@ workflows:
       - build
       - sonar-scanning:
           context: SonarCloud
-      - approve_deployment:
-          type: approval
-          requires:
-            - build
-          <<: *deployment_branch_filter
       - pipeline-template/deploy_microservice:
           serviceName: "mail"
           requires:
-            - approve_deployment
+            - build
+          <<: *deployment_branch_filter
       - acceptance-tests-approval:
           type: approval
           requires:

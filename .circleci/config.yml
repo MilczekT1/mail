@@ -74,12 +74,12 @@ jobs:
           command: |
             cd mail-app || exit
             VERSION=$(mvn -s ../.circleci/settings.xml help:evaluate -Dexpression=project.version -q -DforceStdout)
-            TAG=$CIRCLE_PROJECT_REPONAME-$VERSION-$CIRCLE_BUILD_NUM-PR
+            TAG=mail-$VERSION-$CIRCLE_BUILD_NUM-PR
             if [ "$CIRCLE_BRANCH" == "master" ]; then
-              TAG=$CIRCLE_PROJECT_REPONAME-$VERSION
+              TAG=mail-$VERSION
             fi
             if [ "$CIRCLE_BRANCH" == "develop" ]; then
-              TAG=$CIRCLE_PROJECT_REPONAME-$VERSION-$CIRCLE_BUILD_NUM
+              TAG=mail-$VERSION-$CIRCLE_BUILD_NUM
             fi
 
             docker login -u $DOCKER_USER -p $DOCKER_PASS

@@ -31,7 +31,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @ExtendWith(SpringExtension.class)
 @TestInstance(PER_CLASS)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-public class InvitationToFamilyMailControllerTest {
+class InvitationToFamilyMailControllerTest {
     private static final String INVITATION_PATH = "/api/mail/v1/family-invitations";
 
     private String baseUrl;
@@ -52,7 +52,7 @@ public class InvitationToFamilyMailControllerTest {
     private HashMap<String, String> emptyUrlVariables = new HashMap<>();
 
     @BeforeAll
-    public void setup() throws IOException {
+    void setup() throws IOException {
         baseUrl = "http://localhost:" + port;
         String healthCheckUrl = "http://localhost:" + port + "/actuator/health";
         ResponseEntity<String> response = rest.getForEntity(healthCheckUrl, String.class);
@@ -79,7 +79,7 @@ public class InvitationToFamilyMailControllerTest {
     }
 
     @Test
-    public void givenNewUserInvitationRequest_whenSuccess_thenResponseIs200() {
+    void givenNewUserInvitationRequest_whenSuccess_thenResponseIs200() {
         // Given:
         String url = baseUrl + INVITATION_PATH;
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -93,7 +93,7 @@ public class InvitationToFamilyMailControllerTest {
     }
 
     @Test
-    public void givenNewUserInvitationRequest_whenInvalidRequest_thenResponseIs400() {
+    void givenNewUserInvitationRequest_whenInvalidRequest_thenResponseIs400() {
         // Given:
         String url = baseUrl + INVITATION_PATH;
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -107,7 +107,7 @@ public class InvitationToFamilyMailControllerTest {
     }
 
     @Test
-    public void givenOldUserInvitationRequest_whenSuccess_thenResponseIs200() {
+    void givenOldUserInvitationRequest_whenSuccess_thenResponseIs200() {
         // Given:
         String url = baseUrl + INVITATION_PATH;
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -121,7 +121,7 @@ public class InvitationToFamilyMailControllerTest {
     }
 
     @Test
-    public void givenOldUserInvitationRequest_whenInvalidRequest_thenResponseIs400() {
+    void givenOldUserInvitationRequest_whenInvalidRequest_thenResponseIs400() {
         // Given:
         String url = baseUrl + INVITATION_PATH;
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -135,7 +135,7 @@ public class InvitationToFamilyMailControllerTest {
     }
 
     @Test
-    public void givenBAHeaderIsMissing_whenInvitingToFamily_thenUnauthorized() {
+    void givenBAHeaderIsMissing_whenInvitingToFamily_thenUnauthorized() {
         // Given:
         String url = baseUrl + INVITATION_PATH;
         HttpHeaders httpHeaders = new HttpHeaders();

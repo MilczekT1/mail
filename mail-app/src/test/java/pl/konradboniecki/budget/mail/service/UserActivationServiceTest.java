@@ -31,7 +31,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
         webEnvironment = WebEnvironment.NONE,
         properties = "spring.cloud.config.enabled=false"
 )
-public class UserActivationServiceTest {
+class UserActivationServiceTest {
 
     @MockBean
     private MailService mailService;
@@ -40,13 +40,13 @@ public class UserActivationServiceTest {
     private UserActivationService userActivationService;
 
     @BeforeAll
-    public void setup() {
+    void setup() {
         userActivationService = new UserActivationService(mailService, beanValidator);
     }
 
     @ParameterizedTest
     @MethodSource("provideInvalidUserActivationRequests")
-    public void givenInvalidArguments_whenSendEmail_thenFailure(OASSignUpDetails testArg) {
+    void givenInvalidArguments_whenSendEmail_thenFailure(OASSignUpDetails testArg) {
         Throwable catchedException = catchThrowable(
                 () -> userActivationService.sendSignUpConfirmation(testArg));
         assertThat(catchedException).isInstanceOf(IllegalArgumentException.class);
@@ -75,7 +75,7 @@ public class UserActivationServiceTest {
     }
 
     @Test
-    public void givenValidArguments_whenSendEmail_thenDoesNotThrow() {
+    void givenValidArguments_whenSendEmail_thenDoesNotThrow() {
         OASAccount acc = new OASAccount();
         acc.setFirstName("kon");
         acc.setLastName("bon");

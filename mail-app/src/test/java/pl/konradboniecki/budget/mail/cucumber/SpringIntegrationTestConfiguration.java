@@ -16,7 +16,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
                 "tests.acceptance.mockMail=true"
         })
 @CucumberContextConfiguration
-public class SpringIntegrationTest {
+public class SpringIntegrationTestConfiguration {
 
     @LocalServerPort
     int localServerPort;

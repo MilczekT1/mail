@@ -24,13 +24,13 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
-import static pl.konradboniecki.budget.mail.controller.UserActivationMailController.BASE_PATH;
 
 @ExtendWith(SpringExtension.class)
 @TestInstance(PER_CLASS)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-public class UserActivationMailControllerTest {
-    private static final String ACTIVATION_PATH = BASE_PATH + "/account-activations";
+class UserActivationMailControllerTest {
+
+    private final String ACTIVATION_PATH = "/api/mail/v1/account-activations";
 
     private String baseUrl;
     @LocalServerPort
@@ -46,7 +46,7 @@ public class UserActivationMailControllerTest {
     private HashMap<String, String> emptyUrlVariables = new HashMap<>();
 
     @BeforeEach
-    public void setup() throws IOException {
+    void setup() throws IOException {
         baseUrl = "http://localhost:" + port;
 
         String healthCheckUrl = "http://localhost:" + port + "/actuator/health";
@@ -68,7 +68,7 @@ public class UserActivationMailControllerTest {
     }
 
     @Test
-    public void givenAccountActivationRequest_whenFailure_thenResponseIs400() {
+    void givenAccountActivationRequest_whenFailure_thenResponseIs400() {
         // Given:
         String url = baseUrl + ACTIVATION_PATH;
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -82,7 +82,7 @@ public class UserActivationMailControllerTest {
     }
 
     @Test
-    public void givenAccountActivationRequest_whenSuccess_thenResponseIs200() {
+    void givenAccountActivationRequest_whenSuccess_thenResponseIs200() {
         // Given:
         String url = baseUrl + ACTIVATION_PATH;
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -96,7 +96,7 @@ public class UserActivationMailControllerTest {
     }
 
     @Test
-    public void givenAccountActivationRequest_whenInvalidRequest_thenResponseIs400() {
+    void givenAccountActivationRequest_whenInvalidRequest_thenResponseIs400() {
         // Given:
         String url = baseUrl + ACTIVATION_PATH;
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -110,7 +110,7 @@ public class UserActivationMailControllerTest {
     }
 
     @Test
-    public void givenBAHeaderIsMissing_whenInviteNewUser_thenUnauthorized() {
+    void givenBAHeaderIsMissing_whenInviteNewUser_thenUnauthorized() {
         // Given:
         String url = baseUrl + ACTIVATION_PATH;
         HttpHeaders httpHeaders = new HttpHeaders();

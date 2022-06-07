@@ -32,7 +32,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
         webEnvironment = WebEnvironment.NONE,
         properties = "spring.cloud.config.enabled=false"
 )
-public class RegisteredUserInvitationServiceTest {
+class RegisteredUserInvitationServiceTest {
 
     @MockBean
     private MailService mailService;
@@ -42,14 +42,14 @@ public class RegisteredUserInvitationServiceTest {
     private BeanValidator beanValidator;
 
     @BeforeAll
-    public void setup() throws NoSuchMethodException {
+    void setup() throws NoSuchMethodException {
         createContextForTemplateMethod = RegisteredUserInvitationService.class.getDeclaredMethod("createContextForTemplate", OASFamily.class, OASAccount.class, OASAccount.class, String.class);
         createContextForTemplateMethod.setAccessible(true);
         registeredUserInvitationService = new RegisteredUserInvitationService(mailService, beanValidator);
     }
 
     @Test
-    public void givenAnyInvitationCode_whenCheckInvitationCode_thenIsInvitationCodeOkMethodReturnTrue() {
+    void givenAnyInvitationCode_whenCheckInvitationCode_thenIsInvitationCodeOkMethodReturnTrue() {
         OASInvitationToFamily itf = new OASInvitationToFamily()
                 .invitee(TestDataFactory.populateValidAccount())
                 .family(TestDataFactory.populateValidFamily())
@@ -61,7 +61,7 @@ public class RegisteredUserInvitationServiceTest {
     }
 
     @Test
-    public void givenArguments_whenCreateContext_thenReturnMap() throws Exception {
+    void givenArguments_whenCreateContext_thenReturnMap() throws Exception {
         OASAccount acc = new OASAccount();
         acc.setFirstName("testFirstName");
         acc.setLastName("testLastName");
@@ -91,7 +91,7 @@ public class RegisteredUserInvitationServiceTest {
 
     @ParameterizedTest
     @MethodSource("createInputMatrix")
-    public void givenInvalidArguments_whenCheckInput_thenIsInputOkMethodReturnFalse(OASFamily family, OASAccount account, OASAccount owner, UUID invitationCode, Boolean guest) {
+    void givenInvalidArguments_whenCheckInput_thenIsInputOkMethodReturnFalse(OASFamily family, OASAccount account, OASAccount owner, UUID invitationCode, Boolean guest) {
         OASInvitationToFamily itf = new OASInvitationToFamily()
                 .family(family)
                 .invitee(account)

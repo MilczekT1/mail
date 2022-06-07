@@ -12,7 +12,6 @@ import pl.konradboniecki.chassis.exceptions.InternalServerErrorException;
 
 import javax.mail.internet.MimeMessage;
 import java.util.Map;
-// TODO: @RefreshScope() to enable refresh of values annotated with @Value
 @Slf4j
 @Service
 public class MailService {

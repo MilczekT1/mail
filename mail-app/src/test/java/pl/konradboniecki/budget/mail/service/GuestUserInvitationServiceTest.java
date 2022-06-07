@@ -35,7 +35,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
         webEnvironment = WebEnvironment.NONE,
         properties = "spring.cloud.config.enabled=false"
 )
-public class GuestUserInvitationServiceTest {
+class GuestUserInvitationServiceTest {
 
     @MockBean
     private MailService mailService;
@@ -45,7 +45,7 @@ public class GuestUserInvitationServiceTest {
     private BeanValidator beanValidator;
 
     @BeforeAll
-    public void setup() throws NoSuchMethodException {
+    void setup() throws NoSuchMethodException {
         createContextForTemplateMethod = GuestUserInvitationService.class.getDeclaredMethod("createContextForTemplate", OASAccount.class, OASFamily.class, String.class);
         createContextForTemplateMethod.setAccessible(true);
 
@@ -54,7 +54,7 @@ public class GuestUserInvitationServiceTest {
 
     @ParameterizedTest
     @MethodSource("blankStrings")
-    public void givenBlankEmail_whenCheckEmail_thenThrow(String email) {
+    void givenBlankEmail_whenCheckEmail_thenThrow(String email) {
         OASInvitationToFamily itf = new OASInvitationToFamily()
                 .inviter(new OASAccount())
                 .family(new OASFamily())
@@ -67,7 +67,7 @@ public class GuestUserInvitationServiceTest {
     }
 
     @Test
-    public void givenArguments_whenCreateContext_thenReturnMap() throws Exception {
+    void givenArguments_whenCreateContext_thenReturnMap() throws Exception {
         OASAccount acc = new OASAccount();
         acc.setFirstName("testFirstName");
         acc.setLastName("testLastName");
@@ -90,7 +90,7 @@ public class GuestUserInvitationServiceTest {
     }
 
     @Test
-    public void givenValidArguments_whenSendEmailAndSuccess_thenReturnTrue() {
+    void givenValidArguments_whenSendEmailAndSuccess_thenReturnTrue() {
         doNothing().when(mailService)
                 .sendMailToUserUsingTemplate(anyString(), anyString(), anyString(), anyMap());
         OASInvitationToFamily itf = new OASInvitationToFamily()
@@ -103,7 +103,7 @@ public class GuestUserInvitationServiceTest {
 
     @ParameterizedTest
     @MethodSource("createAccountFamilyEmailMatrix")
-    public void givenInvalidArguments_whenCheckInput_thenThrow(OASAccount account, OASFamily family, String email) {
+    void givenInvalidArguments_whenCheckInput_thenThrow(OASAccount account, OASFamily family, String email) {
         OASInvitationToFamily itf = new OASInvitationToFamily()
                 .inviter(account)
                 .family(family)

@@ -17,7 +17,7 @@ public class UserActivationService {
     private static final String SIGN_UP_CONFIRMATION_TITLE = "Budget - Sign up completed";
 
     @Value("${budget.baseUrl.gateway}")
-    private String BASE_URL;
+    private String gatewayUrl;
     private final MailService mailService;
     private final BeanValidator beanValidator;
 
@@ -33,7 +33,7 @@ public class UserActivationService {
         Map<String, String> contextVariables = new HashMap<>();
         contextVariables.put("recipient", acc.getFirstName() + " " + acc.getLastName());
         contextVariables.put("activationLink",
-                BASE_URL + "/api/account-mgt/v1/accounts/" + acc.getId() + "/activation-codes/" + signUpDetails.getActivationCode());
+                gatewayUrl + "/api/account-mgt/v1/accounts/" + acc.getId() + "/activation-codes/" + signUpDetails.getActivationCode());
         log.info("Attempting to send activation link to: " + acc.getEmail());
         mailService.sendMailToUserUsingTemplate(SIGN_UP_CONFIRMATION_TITLE,
                 MailTemplate.CONFIRMATION_SIGN_UP, acc.getEmail(), contextVariables);

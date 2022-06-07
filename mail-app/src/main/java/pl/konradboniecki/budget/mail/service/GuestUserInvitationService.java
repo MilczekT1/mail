@@ -13,12 +13,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
-@Service
+@Service("newUserInvitationService")
 public class GuestUserInvitationService implements InvitationService {
     private static final String INVITATION_TITLE = "Budget - Invitation to family";
 
     @Value("${budget.baseUrl.gateway}")
-    private String BASE_URL;
+    private String gatewayUrl;
     private final MailService mailService;
     private final BeanValidator beanValidator;
 
@@ -48,7 +48,7 @@ public class GuestUserInvitationService implements InvitationService {
         ctxtVariables.put("ownersFirstName", owner.getFirstName());
         ctxtVariables.put("ownersLastName", owner.getLastName());
         ctxtVariables.put("ownersEmail", owner.getEmail());
-        ctxtVariables.put("registerLink", BASE_URL + "/register");
+        ctxtVariables.put("registerLink", gatewayUrl + "/register");
         return ctxtVariables;
     }
 }

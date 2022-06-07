@@ -30,7 +30,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
         webEnvironment = WebEnvironment.NONE,
         properties = "spring.cloud.config.enabled=false"
 )
-public class ResetPasswordServiceTest {
+class ResetPasswordServiceTest {
 
     private ResetPasswordService resetPasswordService;
     @MockBean
@@ -39,12 +39,12 @@ public class ResetPasswordServiceTest {
     private BeanValidator beanValidator;
 
     @BeforeAll
-    public void setup() throws NoSuchMethodException {
+    void setup() throws NoSuchMethodException {
         resetPasswordService = new ResetPasswordService(mailService, beanValidator);
     }
 
     @Test
-    public void givenValidResetCode_whenCheckResetCode_thenDontThrow() {
+    void givenValidResetCode_whenCheckResetCode_thenDontThrow() {
         OASAccount account = new OASAccount()
                 .lastName("lastName")
                 .firstName("firstName")
@@ -60,7 +60,7 @@ public class ResetPasswordServiceTest {
 
     @ParameterizedTest
     @MethodSource("provideInvalidResetPasswordRequests")
-    public void givenInvalidArguments_whenSendEmail_thenFailure(OASResetPasswordDetails testArg) {
+    void givenInvalidArguments_whenSendEmail_thenFailure(OASResetPasswordDetails testArg) {
         assertThrows(IllegalArgumentException.class,
                 () -> resetPasswordService.sendNewPasswordActivationLink(testArg));
     }
@@ -83,7 +83,7 @@ public class ResetPasswordServiceTest {
     }
 
     @Test
-    public void givenValidArguments_whenSendEmail_thenSuccess() {
+    void givenValidArguments_whenSendEmail_thenSuccess() {
         OASAccount acc = new OASAccount()
                 .firstName("kon")
                 .lastName("bon")

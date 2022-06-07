@@ -18,7 +18,6 @@ import java.util.UUID;
 
 import static io.restassured.config.RedirectConfig.redirectConfig;
 import static io.restassured.config.RestAssuredConfig.config;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 
 @ExtendWith(SpringExtension.class)
@@ -50,6 +49,6 @@ public abstract class PasswordMgtClientBase {
                 .resetCode(resetCode);
 
         doNothing().when(resetPasswordService)
-                .sendNewPasswordActivationLink(eq(resetPasswordDetails));
+                .sendNewPasswordActivationLink(resetPasswordDetails);
     }
 }

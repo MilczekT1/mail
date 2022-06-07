@@ -2,13 +2,13 @@ openapi: 3.0.1
 info:
   title: Mail Service
   description: 'Api exposed by budget management service'
-  version: 0.0.1
+  version: 0.0.2
 externalDocs:
   description: Go to source Code
   url: https://bitbucket.org/konradboniecki/mail/src/master/
 servers:
-  - url: http://localhost:8080/api/mail/v1
-  - url: https://konradboniecki.com.pl/api/mail/v1
+  - url: http://localhost:8080
+  - url: https://konradboniecki.com.pl
 tags:
   - name: Accounts
     description: Api for emails related to account
@@ -19,7 +19,7 @@ tags:
 security:
   - basicAuth: [ ]
 paths:
-  '/account-activations':
+  '/api/mail/v1/account-activations':
     post:
       tags:
         - Accounts
@@ -40,7 +40,7 @@ paths:
           $ref: '#/components/responses/BadRequestError'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/password-reset':
+  '/api/mail/v1/password-reset':
     post:
       tags:
         - Passwords
@@ -61,7 +61,7 @@ paths:
           $ref: '#/components/responses/BadRequestError'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/family-invitations':
+  '/api/mail/v1/family-invitations':
     post:
       tags:
         - Invitations

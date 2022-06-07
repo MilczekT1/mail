@@ -13,12 +13,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
-@Service
+@Service("existingUserInvitationService")
 public class RegisteredUserInvitationService implements InvitationService {
     private static final String INVITATION_TITLE = "Budget - Invitation to family";
 
     @Value("${budget.baseUrl.gateway}")
-    private String BASE_URL;
+    private String gatewayUrl;
     private MailService mailService;
     private BeanValidator beanValidator;
 
@@ -50,7 +50,7 @@ public class RegisteredUserInvitationService implements InvitationService {
         ctxVariables.put("ownersFirstName", owner.getFirstName());
         ctxVariables.put("ownersLastName", owner.getLastName());
         ctxVariables.put("ownersEmail", owner.getEmail());
-        ctxVariables.put("invitationLink", BASE_URL + "/pl/konradboniecki/budget/family/invitations/" + family.getId() + "/addMember/" + account.getId() + "/" + invitationCode);
+        ctxVariables.put("invitationLink", gatewayUrl + "/pl/konradboniecki/budget/family/invitations/" + family.getId() + "/addMember/" + account.getId() + "/" + invitationCode);
         return ctxVariables;
     }
 }

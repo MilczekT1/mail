@@ -24,13 +24,13 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
-import static pl.konradboniecki.budget.mail.controller.ResetPasswordMailController.BASE_PATH;
 
 @ExtendWith(SpringExtension.class)
 @TestInstance(PER_CLASS)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-public class ResetPasswordMailControllerTest {
-    private static final String RESET_PASSWD_PATH = BASE_PATH + "/password-reset";
+class ResetPasswordMailControllerTest {
+
+    private static final String RESET_PASSWD_PATH = "/api/mail/v1/password-reset";
 
     private String baseUrl;
     @LocalServerPort
@@ -46,7 +46,7 @@ public class ResetPasswordMailControllerTest {
     private final HashMap<String, String> emptyUrlVariables = new HashMap<>();
 
     @BeforeAll
-    public void setup() throws IOException {
+    void setup() throws IOException {
         baseUrl = "http://localhost:" + port;
         String healthCheckUrl = "http://localhost:" + port + "/actuator/health";
         ResponseEntity<String> response = rest.getForEntity(healthCheckUrl, String.class);
@@ -64,7 +64,7 @@ public class ResetPasswordMailControllerTest {
     }
 
     @Test
-    public void givenResetPasswordRequest_whenSuccess_thenResponseIs200() {
+    void givenResetPasswordRequest_whenSuccess_thenResponseIs200() {
         // Given:
         String url = baseUrl + RESET_PASSWD_PATH;
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -78,7 +78,7 @@ public class ResetPasswordMailControllerTest {
     }
 
     @Test
-    public void givenResetPasswordRequest_whenInvalidRequest_thenResponseIs400() {
+    void givenResetPasswordRequest_whenInvalidRequest_thenResponseIs400() {
         // Given:
         String url = baseUrl + RESET_PASSWD_PATH;
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -92,7 +92,7 @@ public class ResetPasswordMailControllerTest {
     }
 
     @Test
-    public void givenBAHeaderIsMissing_whenInviteNewUser_thenUnauthorized() {
+    void givenBAHeaderIsMissing_whenInviteNewUser_thenUnauthorized() {
         // Given:
         String url = baseUrl + RESET_PASSWD_PATH;
         HttpHeaders httpHeaders = new HttpHeaders();

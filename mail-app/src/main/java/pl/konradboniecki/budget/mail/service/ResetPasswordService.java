@@ -15,7 +15,7 @@ import java.util.Map;
 public class ResetPasswordService {
 
     @Value("${budget.baseUrl.gateway}")
-    private String BASE_URL;
+    private String gatewayUrl;
 
     private final MailService mailService;
     private final BeanValidator beanValidator;
@@ -32,7 +32,7 @@ public class ResetPasswordService {
         Map<String, String> contextVariables = new HashMap<>();
         contextVariables.put("recipient", acc.getFirstName() + " " + acc.getLastName());
         contextVariables.put("resetLink",
-                BASE_URL + "/api/reset-password/" + acc.getId() + "/" + resetPasswordDetails.getResetCode());
+                gatewayUrl + "/api/reset-password/" + acc.getId() + "/" + resetPasswordDetails.getResetCode());
 
         log.info("Mail with password reset link has been sent to " + acc.getEmail());
         mailService.sendMailToUserUsingTemplate("Budget - New Password Activation",

@@ -1,5 +1,6 @@
 package pl.konradboniecki.budget.mail.service;
 
+import jakarta.mail.internet.MimeMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,7 +11,6 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import pl.konradboniecki.chassis.exceptions.InternalServerErrorException;
 
-import javax.mail.internet.MimeMessage;
 import java.util.Map;
 @Slf4j
 @Service

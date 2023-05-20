@@ -2,14 +2,14 @@ package pl.konradboniecki.budget.mail.model.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import pl.konradboniecki.budget.openapi.dto.model.OASAccount;
 import pl.konradboniecki.budget.openapi.dto.model.OASFamily;
 import pl.konradboniecki.budget.openapi.dto.model.OASInvitationToFamily;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Getter

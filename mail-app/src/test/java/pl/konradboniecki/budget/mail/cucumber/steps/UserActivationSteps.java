@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import pl.konradboniecki.budget.mail.cucumber.commons.SharedData;
 import pl.konradboniecki.budget.mail.cucumber.security.Security;
@@ -28,7 +28,7 @@ public class UserActivationSteps {
 
     @Then("email with sign up confirmation is sent")
     public void emailWithInvitationIsSent() {
-        HttpStatus lastResponseHttpStatus = sharedData.getLastResponseEntity().getStatusCode();
+        HttpStatusCode lastResponseHttpStatus = sharedData.getLastResponseEntity().getStatusCode();
         assertThat(lastResponseHttpStatus.is2xxSuccessful()).isTrue();
     }
 

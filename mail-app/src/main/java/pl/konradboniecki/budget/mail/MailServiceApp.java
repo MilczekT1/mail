@@ -1,16 +1,9 @@
 package pl.konradboniecki.budget.mail;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import pl.konradboniecki.chassis.ChassisApplication;
 
-@SpringBootApplication(exclude={
-        DataSourceAutoConfiguration.class,
-        HibernateJpaAutoConfiguration.class
-        },
-        scanBasePackages = "pl.konradboniecki"
-)
+@ChassisApplication(scanBasePackages = "pl.konradboniecki.chassis.configuration.webserver", scanBasePackageClasses = MailServiceApp.class)
 public class MailServiceApp {
 
     public static void main(String[] args) {

@@ -2,12 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>pl.konradboniecki</groupId>
         <artifactId>chassis-openapi-parent</artifactId>
-        <version>0.3.1</version>
+        <version>0.3.5</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
     <groupId>pl.konradboniecki.budget</groupId>
     <artifactId>mail-api</artifactId>
@@ -19,6 +19,32 @@
         <sonar.projectKey>MilczekT1_mail</sonar.projectKey>
         <sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>openapi-generator</artifactId>
+            <version>${chassis.openapi.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-ext</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-simple</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.mail</groupId>
+                    <artifactId>mailapi</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
@@ -45,6 +71,7 @@
                                 <hideGenerationTimestamp>true</hideGenerationTimestamp>
                                 <delegatePattern>true</delegatePattern>
                                 <useTags>true</useTags>
+                                <useJakartaEe>true</useJakartaEe>
                                 <serializableModel>true</serializableModel>
                                 <performBeanValidation>true</performBeanValidation>
                             </configOptions>

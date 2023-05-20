@@ -6,7 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import pl.konradboniecki.budget.mail.MailServiceApp;
 import pl.konradboniecki.budget.mail.service.MailService;
@@ -23,7 +23,8 @@ import static org.mockito.Mockito.doNothing;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(
         classes = MailServiceApp.class,
-        webEnvironment = WebEnvironment.RANDOM_PORT
+        webEnvironment = WebEnvironment.RANDOM_PORT,
+        properties = "main.allow-bean-definition-overriding=true"
 )
 public abstract class PasswordMgtClientBase {
 
